@@ -5,13 +5,17 @@
 ## Resumen del Proyecto
 
 **Número de Proyecto:** {{Numero_Proyecto}}
+
 **Fecha de Inicio:** {{Fecha_Proyecto}}
+
 **Nombre del Proyecto:** {{Proyecto}}
 
 ## Información del Cliente
 
 **Cliente:** {{Nombre_Cliente}}
+
 **Dirección:** {{Direccion_Cliente}}
+
 **Email de Contacto:** {{Email_Cliente}}
 
 ## Detalles Financieros
