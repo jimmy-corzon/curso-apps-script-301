@@ -1,0 +1,6 @@
+Fecha_Proyecto,Numero_Proyecto,ID_Cliente,Proyecto,Monto,Estado
+2023-01-15,1001,Cliente-A,Desarrollo Web,50000,FALSE
+2023-03-20,1002,Cliente-B,Análisis de Datos,75000,FALSE
+2023-05-10,1003,Cliente-C,Consultoría de Marketing,30000,FALSE
+2023-07-25,1004,Cliente-D,Implementación de ERP,120000,FALSE
+2023-09-05,1005,Cliente-A,Rediseño de App,60000,FALSE
