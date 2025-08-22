@@ -37,14 +37,14 @@ Necesitamos tres "activos" en tu Google Drive antes de poder ejecutar el script.
 
 #### A. Crear la Hoja de Cálculo de Google (Nuestra Base de Datos)
 
-1.  Ve a tu Google Drive y crea una nueva **Carpeta**. Dale un nombre descriptivo, como "Datos - Proyectos".
-2.  Ingresa a la carpeta y crea una nueva **Hoja de Cálculo de Google**. Dale un nombre descriptivo, como "Datos de Proyectos".
+1.  Ve a tu Google Drive y crea una nueva **Carpeta**. Dale un nombre descriptivo, como **"Reporte de Proyectos"**.
+2.  Ingresa a la carpeta y crea una nueva **Hoja de Cálculo de Google**. Dale un nombre descriptivo, como **"Datos - Proyectos"**.
 3.  **Crea dos pestañas** en la parte inferior. Renómbralas exactamente como `proyectos` y `clientes`.
 4.  **Pestaña `proyectos`:**
 
     - En la primera fila, copia y pega estos encabezados:
       `Fecha_Proyecto`, `Numero_Proyecto`, `ID_Cliente`, `Proyecto`, `Monto`, `Estado`
-    - Para poblarla con datos de ejemplo, crea un archivo de texto llamado `proyectos.csv` en tu computadora, pega el siguiente contenido y luego impórtalo en esta pestaña (`Archivo > Importar > Subir`).
+    - Para poblarla con datos de ejemplo, descarga el archivo de texto llamado `proyectos.csv` en tu computadora y luego impórtalo en esta pestaña (`Archivo > Importar > Subir`).
 
       - [Archivo de ejemplo de proyectos](data/proyectos.csv)
 
@@ -52,7 +52,7 @@ Necesitamos tres "activos" en tu Google Drive antes de poder ejecutar el script.
 
     - En la primera fila, copia y pega estos encabezados:
       `ID_Cliente`, `Nombre_Cliente`, `Direccion_Cliente`, `Ciudad`, `Email_Cliente`
-    - Crea un archivo `clientes.csv` con el siguiente contenido e impórtalo en esta pestaña. **¡Importante!** Reemplaza los correos de ejemplo con tu propio correo electrónico para poder recibir los resultados de las pruebas.
+    - Descarga el archivo `clientes.csv` e impórtalo en esta pestaña. **¡Importante!** Reemplaza los correos de ejemplo con tu propio correo electrónico para poder recibir los resultados de las pruebas.
 
       - [Archivo de ejemplo de clientes](data/clientes.csv)
 
@@ -60,7 +60,7 @@ _En la URL de la hoja de cálculo, copia el ID que aparece entre `/d/` y `/edit`
 
 #### B. Crear la Plantilla de Google Docs
 
-1.  En Google Drive, crea un nuevo **Documento de Google**. Nómbralo "Plantilla - Reportes de proyectos".
+1.  En Google Drive, crea un nuevo **Documento de Google**. Nómbralo **"Plantilla - Reportes de proyectos"**.
 2.  Copia y pega el siguiente contenido dentro del documento. Siéntete libre de añadir tu logo, cambiar fuentes y colores. Lo importante es mantener los **placeholders con doble llave `{{...}}`** intactos, ya que el script los buscará para reemplazarlos.
 
     - [Plantilla de Reporte](data/plantilla-docs.md)
@@ -70,7 +70,7 @@ _En la URL del documento, copia el ID que aparece entre `/d/` y `/edit`. Este es
 #### C. Crear la Carpeta de Destino
 
 1.  Finalmente, crea una **Carpeta** nueva en Google Drive. Nómbrala "Reportes Generados". Aquí es donde el script guardará todos los PDFs finales y documentos temporales.
-2.  Crea dos carpetas dentro de "Reportes Generados": "PDFs" y "Temporales".
+2.  Crea dos carpetas dentro de "Reportes Generados": **"PDFs"** y **"Temporales"**.
 
 _En la URL de la carpeta (Temporales), copia el ID que aparece despues de `/folders/`. Este es el `DESTINATION_FOLDER_TEMP_ID` que necesitas para el archivo `config.js`._
 
@@ -78,24 +78,28 @@ _En la URL de la carpeta (PDFs), copia el ID que aparece despues de `/folders/`.
 
 ### Paso 2: Crear y Configurar el Proyecto de Apps Script
 
-1.  **Crear un Proyecto Standalone:** En Drive en la carpeta del proyecto, crea un nuevo proyecto de Apps script. Dale un nombre como "Proyecto - Generador de Reportes".
+1.  **Crear un Proyecto Standalone:** En Drive en la carpeta del proyecto, click en Nuevo > Más > Crear un nuevo proyecto de Apps script. Dale un nombre como "Proyecto - Generador de Reportes".
 2.  **Copiar el Código:**
 
-    - Renombra el archivo `Código.gs` por `main.gs`.
-    - Crea 4 nuevos archivos de script (`Archivo > Nuevo > Archivo de script`) y nómbralos: `config.gs`, `sheet-service.gs`, `document-service.gs`, `email-service.gs`.
-    - Crea 1 archivo HTML (`Archivo > Nuevo > Archivo HTML`) y nómbralo `email-template.html`.
+    - Renombra el archivo `Código` por `main`.
+    - Crea 4 nuevos archivos de script (`Archivo > Nuevo > Secuencia de comandos`) y nómbralos: `config`, `sheet-service`, `document-service`, `email-service`.
+    - Crea 1 archivo HTML (`Archivo > Nuevo > HTML`) y nómbralo `email-template.html`.
     - Copia el contenido de cada archivo de este repositorio y pégalo en el archivo correspondiente de tu proyecto de Apps Script.
 
+      - [contenido de main](code/main.js)
       - [contenido de config](code/config.js)
+      - [contenido de sheet-service](code/sheet-service.js)
       - [contenido de document-service](code/document-service.js)
       - [contenido de email-service](code/email-service.js)
       - [contenido de email-template](code/email-template.html)
-      - [contenido de main](code/main.js)
-      - [contenido de sheet-service](code/sheet-service.js)
 
-3.  **Actualizar `config.gs`:**
-    - Abre el archivo `config.gs`. Ahora necesitas los IDs de los activos que creaste en el Paso 1.
-    - Pega cada ID en la constante correspondiente: `GOOGLE_SHEET_ID`, `TEMPLATE_DOC_ID`, `DESTINATION_FOLDER_TEMP_ID`,`DESTINATION_FOLDER_PDF_ID`.
+3.  **Actualizar `config`:**
+    - Abre el archivo `config`. Ahora necesitas los IDs de los activos que creaste en el Paso 1.
+    - Pega cada ID en la constante correspondiente:
+    - `GOOGLE_SHEET_ID` : Id de la Hoja de datos
+    - `TEMPLATE_DOC_ID` : Id de la plantilla del reporte
+    - `DESTINATION_FOLDER_TEMP_ID` : Id de la carpeta para archivos docs
+    - `DESTINATION_FOLDER_PDF_ID`. : Id de la carpeta para archivos pdf
 
 ### Paso 3: Ejecutar el Script y Otorgar Permisos
 
@@ -106,8 +110,8 @@ Esta es la parte más importante la primera vez que ejecutas un script.
 3.  **Panel de Autorización (¡No te asustes!):**
     - Aparecerá una ventana emergente que dice **"Se requiere autorización"**. Esto es normal y es el sistema de seguridad de Google en acción. Haz clic en **"Revisar permisos"**.
     - Se abrirá una nueva ventana para que elijas tu cuenta de Google. Selecciónala.
-    - Verás una pantalla de advertencia que dice **"Google no verificó esta app"**. Esto es porque el script lo has creado tú y no está publicado en el Marketplace. Es seguro continuar. Haz clic en **"Configuración avanzada"** (puede estar en letra pequeña) y luego en **"Ir a [Nombre de tu proyecto] (no seguro)"**.
-    - Finalmente, Google te mostrará una lista de todos los permisos que tu script necesita (ver y administrar Hojas de Cálculo, Documentos, Drive, y enviar correos como tú). Revisa la lista y haz clic en **"Permitir"**.
+    - Si estas ejecutando el script en una cuenta personal, Verás una pantalla de advertencia que dice **"Google no verificó esta app"**. Esto es porque el script lo has creado tú y no está publicado en el Marketplace. Es seguro continuar. Haz clic en **"Configuración avanzada"** (puede estar en letra pequeña y de color rojo) y luego en **"Ir a [Nombre de tu proyecto] (no seguro)"**.
+    - Finalmente, Google te mostrará una lista de todos los permisos que tu script necesita (ver y administrar Hojas de Cálculo, Documentos, Drive, y enviar correos como tú). Revisa la lista, selecciona todo y haz clic en **"Continuar"**.
 4.  **Verifica la Ejecución:**
     - La ventana de autorización se cerrará. Vuelve al editor de Apps Script.
     - Abre los registros de ejecución (`Ver > Registros` o `Ctrl+Enter`). Deberías ver los logs del proceso, indicando cuántos proyectos se encontraron y procesaron.
