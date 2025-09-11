@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form class="row g-3 needs-validation p-4" novalidate id="crear_usuario">
+      <div class="col-12">
+        <label for="name" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="name" name="name" value="Mark" required />
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+
+      <div class="col-12">
+        <label for="email" class="form-label">Email</label>
+        <input type="text" class="form-control" id="email" name="email" value="mark@gmail.com" required />
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+     
+      <div class="col-12">
+        <button class="btn btn-primary" type="submit">Submit form</button>
+      </div>
+    </form>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      // Example starter JavaScript for disabling form submissions if there are invalid fields
+      (() => {
+        "use strict";
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll(".needs-validation");
+
+        // Loop over them and prevent submission
+        Array.from(forms).forEach((form) => {
+          form.addEventListener(
+            "submit",
+            (event) => {
+              if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+              }
+
+              form.classList.add("was-validated");
+            },
+            false
+          );
+        });
+      })();
+    </script>
+
+    <script>
+
+      document.getElementById("crear_usuario").addEventListener("submit", (event) => {
+        event.preventDefault();
+        createUser();
+      });
+
+        // Google Script run
+        function createUser() {
+          const name = document.getElementById("name").value;
+          const email = document.getElementById("email").value;
+
+          google.script.run.withSuccessHandler((response) => {
+            console.log(response);
+            alert("Usuario creado");
+          }).withFailureHandler((error) => {
+            console.error(error);
+            alert("Error al crear el usuario");
+          }).
+          server_createUser({ name, email });
+        }
+    </script>
+
+  </body>
+</html>
