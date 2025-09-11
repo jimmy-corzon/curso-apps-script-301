@@ -1,0 +1,23 @@
+{
+  "name": "sesion-4",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "open": "clasp open",
+    "dev": "clasp push -w",
+    "push": "npm run build && clasp push",
+    "pull": "clasp pull",
+    "deploy": "npm run build && clasp push && clasp deploy -i AKfycbxWgjxVh229Oxy7SjTq_w1Hs9h1o8xkT7n9rgaegyer01faurhxtWZpovn6MCUnJ5xT"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@types/google-apps-script": "^2.0.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.2"
+  }
+}
